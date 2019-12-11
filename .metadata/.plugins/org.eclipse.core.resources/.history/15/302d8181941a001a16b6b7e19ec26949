@@ -1,0 +1,36 @@
+/**
+ * 
+ */
+package textGame;
+
+import org.json.simple.JSONObject;
+import java.util.ArrayList;
+
+/**
+ * @author bourk
+ *
+ */
+public class Map {
+	
+	private int length;
+	private ArrayList<JSONObject> areas = new ArrayList<JSONObject>();
+	private ArrayList<String> values = new ArrayList<String>();
+	private String[] directionList = {"north", "east", "south", "west", "above", "below"};
+	
+	
+	
+	
+	public Map(int length, ArrayList areas, ArrayList values) {
+		this.length = length;
+		this.values = values;
+		this.areas = areas;
+	};
+		
+	
+	public void populateMap{
+		for(int i; i<directionList.length; i++) {
+			areas[i].put(values[i], directionList[i]);
+		};	
+	};
+
+}

@@ -1,0 +1,51 @@
+package textGame;
+
+import org.json.simple.JSONObject;
+import java.util.ArrayList;
+
+public class GameMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		ArrayList<JSONObject> areas = new ArrayList<JSONObject>();
+		
+		
+		
+		JSONObject kitchen = new JSONObject();
+		JSONObject diningRoom = new JSONObject();
+		JSONObject hall = new JSONObject();
+		JSONObject ballroom = new JSONObject();
+		JSONObject garden = new JSONObject();
+		JSONObject cellar = new JSONObject();
+		
+		
+		
+		kitchen.put("kitchen", "here");
+		kitchen.put("dining room", "north");
+		kitchen.put("hall", "east");
+		kitchen.put("garden", "west");
+		kitchen.put("cellar", "below");
+		diningRoom.put("dining room", "here");
+		diningRoom.put("kitchen", "south");
+		diningRoom.put("hall", "east");
+		diningRoom.put("ballroom", "west");
+		ballroom.put("garden","south");
+		ballroom.put("dining room", "east");
+		ballroom.put("ballroom", "here");
+		cellar.put("kitchen", "above");
+		cellar.put("cellar", "here");
+		garden.put("kitchen", "east");
+		garden.put("ballroom", "north");
+		garden.put("garden", "here");
+		hall.put("kitchen", "west");
+		hall.put("hall", "here");
+		hall.put("dining room", "west");
+		
+		
+		
+		
+		
+	}
+
+}

@@ -1,0 +1,52 @@
+/**
+ * 
+ */
+package textGame;
+
+import org.json.simple.JSONObject;
+
+import java.io.IOException;
+import java.io.StringWriter;
+
+
+/**
+ * @author bourk
+ *
+ */
+public class Map {
+	
+	private int length;
+	private JSONObject[] areas = new JSONObject[length];
+	private String[] values = new String[length];
+	private String[] directionList = {"north", "east", "south", "west", "above", "below"};
+	
+	
+	
+	
+	public Map(int length, JSONObject[] areas, String[] values) {
+		this.length = length;
+		this.values = values;
+		this.areas = areas;
+	};
+		
+	
+	public void populateMap() {
+		for(int i = 0; i<directionList.length; i++) {
+			areas[i].put(values[i], directionList[i]);
+			StringWriter out = new StringWriter();
+			try {
+				areas[i].writeJSONString(out);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String mapText = out.toString();
+			System.out.println(mapText);
+			
+		};
+		
+
+		
+	};
+
+}

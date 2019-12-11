@@ -1,0 +1,90 @@
+/**
+ * 
+ */
+package genePlay;
+
+import java.util.Arrays;
+/**
+ * @author bourk
+ *
+ */
+public class GeneTest {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		
+		TestSubject[] generationParent1 = new TestSubject[50];
+		TestSubject[] generationParent2 = new TestSubject[50];
+		int generationNumber = 0;
+		int[][][] generationArray = new int[50][100][4]; 
+
+		for(int i = 0; i<50; i++){
+			TestSubject subject = new TestSubject();
+			generationParent1[i] = subject;
+			TestSubject subjectTwo = new TestSubject();
+			generationParent2[i] = subjectTwo;
+			}
+
+		
+	do {
+		for(int i = 0; i<50; i++){
+			NewGeneration generation = new NewGeneration(generationParent1[i], generationParent2[i]);
+			generation.createNewSubject();
+			TestSubject child = generation.getChild();
+			generationParent1[i] = child;
+			}
+
+		for(int i = 49; i>0; i--){
+			NewGeneration generation = new NewGeneration(generationParent1[i], generationParent2[i]);
+			generation.createNewSubject();
+			TestSubject child = generation.getChild();
+			generationParent2[i] = child;
+			}
+
+		
+		
+		for(int i=0; i<50; i++) {
+			int[] colourValues = generationParent1[i].getEyeColour();
+			//System.out.println("No 1: " + Arrays.toString(colourValues));
+			for(int j=0; j<colourValues.length; j++) {
+				generationArray[generationNumber][i][j] = colourValues[j];
+			}
+		}
+		
+		for(int i=49; i>0; i--) {
+			int[] colourValues2 = generationParent2[i].getEyeColour();
+			//System.out.println("No 2: " + Arrays.toString(colourValues2));
+			for(int j=0; j<colourValues2.length; j++) {
+			generationArray[generationNumber][(i+50)][j] = colourValues2[j];
+			}
+		}
+		
+		generationNumber++;
+		
+	}while(generationNumber<50);
+	
+	int brownValue = 0;
+	int blueValue = 0;
+	
+	
+	for(int i=0; i<generationArray.length; i++) {
+		for(int j=0; j<generationArray[i].length; j++) {
+			if((generationArray[i][j][0] == 1) || (generationArray[i][j][1] == 1) || (generationArray[i][j][2] == 1) || (generationArray[i][j][3] == 1) ) {
+				brownValue++;
+			}
+			else {
+				blueValue++;
+			}	
+		}
+		System.out.println("In generation " + (i) + " there are " + brownValue + " people with brown eyes and " + blueValue + " people with blue eyes.");
+	}		
+	
+	
+
+	}
+
+}

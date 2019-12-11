@@ -1,0 +1,90 @@
+package textGame;
+
+import org.json.simple.HashMap<String, Map>;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.HashMap;
+
+public class GameMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		HashMap<String, Map> areas = new HashMap<String, Map>();
+		
+		
+		
+		HashMap<String, Map> kitchen = new HashMap<String, Map>();
+		HashMap<String, Map> diningRoom = new HashMap<String, Map>();
+		HashMap<String, Map> hall = new HashMap<String, Map>();
+		HashMap<String, Map> ballroom = new HashMap<String, Map>();
+		HashMap<String, Map> garden = new HashMap<String, Map>();
+		HashMap<String, Map> cellar = new HashMap<String, Map>();
+		HashMap<String, Map> yourRoom = new HashMap<String, Map>();
+		
+		
+		
+		kitchen.put("here", kitchen);
+		kitchen.put("north", diningRoom);
+		kitchen.put("east", hall);
+		kitchen.put("west", garden);
+		kitchen.put("south", cellar);
+		diningRoom.put("here", diningRoom);
+		diningRoom.put( "south", kitchen);
+		diningRoom.put("east", hall);
+		diningRoom.put( "west", ballroom);
+		ballroom.put("south", garden);
+		ballroom.put( "east", diningRoom);
+		ballroom.put("here", ballroom);
+		cellar.put( "north", kitchen);
+		cellar.put("here", cellar);
+		garden.put( "east", kitchen);
+		garden.put( "north", ballroom);
+		garden.put( "here", garden);
+		hall.put( "west", kitchen);
+		hall.put( "here", hall);
+		hall.put( "west", diningRoom);
+		
+		/*So now we have populated the JSON objects with values, we want to be able to navigate between them. So that means figuring out how to navigate the key-value pairs.
+		 * 
+		 *  HALL :: DININGROOM :: BALLROOM
+		 *  HALL :: KITCHEN ::    GARDEN
+		 *  	 ::	CELLAR  ::
+		 *  
+		 *  So if it contains the value return the key, print key and value.
+		 *  But how to move between objects?
+		 *  
+		 *  if key is kitchen object is object-kitchen?
+		 *  
+		 *  yourRoom = kitchen
+		 *  
+		 *  yourRoom print contents, ask for user input
+		 *  if user input == value, get key
+		 *  
+		 *  yourRoom = key
+		 *  
+		 *  */
+		
+		
+	yourRoom = kitchen;
+	
+	Scanner input = new Scanner(System.in);
+	
+	String direction = input.nextLine();
+	
+	if(yourRoom.containsKey(direction)) {
+		HashMap<String, Map> room = new HashMap<String, Map>();
+		room = yourRoom.get(direction);
+		yourRoom = room;
+		
+	}
+	
+	
+		
+		
+	
+		
+	input.close();	
+	}
+
+}

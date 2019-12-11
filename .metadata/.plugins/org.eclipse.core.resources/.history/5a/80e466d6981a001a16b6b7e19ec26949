@@ -1,0 +1,39 @@
+package textGame;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
+
+public class GameMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int length;
+		length = 6;
+		JSONObject[] areas = new JSONObject[length];
+		String[]values = {"dining room", "hall", "ballroom", "kitchen", "garden", "cellar"};
+		
+		
+		JSONObject kitchen = new JSONObject();
+		JSONObject diningRoom = new JSONObject();
+		JSONObject hall = new JSONObject();
+		JSONObject ballroom = new JSONObject();
+		JSONObject garden = new JSONObject();
+		JSONObject cellar = new JSONObject();
+		
+		areas[0] = kitchen;
+		areas[1] = diningRoom;
+		areas[2] = hall;
+		areas[3] = ballroom;
+		areas[4] = garden;
+		areas[5] = cellar;
+		
+		
+		Map hello = new Map(length, areas, values);
+		hello.populateMap();
+		
+		
+		
+	}
+
+}

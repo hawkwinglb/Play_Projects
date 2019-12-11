@@ -1,0 +1,88 @@
+package textGame;
+
+import org.json.simple.JSONObject;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class GameMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		JSONObject areas = new JSONObject();
+		
+		
+		
+		JSONObject kitchen = new JSONObject();
+		JSONObject diningRoom = new JSONObject();
+		JSONObject hall = new JSONObject();
+		JSONObject ballroom = new JSONObject();
+		JSONObject garden = new JSONObject();
+		JSONObject cellar = new JSONObject();
+		JSONObject yourRoom = new JSONObject();
+		
+		
+		
+		kitchen.put(kitchen, "here");
+		kitchen.put(diningRoom, "north");
+		kitchen.put(hall, "east");
+		kitchen.put(garden, "west");
+		kitchen.put(cellar, "south");
+		diningRoom.put(diningRoom, "here");
+		diningRoom.put(kitchen, "south");
+		diningRoom.put(hall, "east");
+		diningRoom.put(ballroom, "west");
+		ballroom.put(garden,"south");
+		ballroom.put(diningRoom, "east");
+		ballroom.put(ballroom, "here");
+		cellar.put(kitchen, "north");
+		cellar.put(cellar, "here");
+		garden.put(kitchen, "east");
+		garden.put(ballroom, "north");
+		garden.put(garden, "here");
+		hall.put(kitchen, "west");
+		hall.put(hall, "here");
+		hall.put(diningRoom, "west");
+		
+		/*So now we have populated the JSON objects with values, we want to be able to navigate between them. So that means figuring out how to navigate the key-value pairs.
+		 * 
+		 *  HALL :: DININGROOM :: BALLROOM
+		 *  HALL :: KITCHEN ::    GARDEN
+		 *  	 ::	CELLAR  ::
+		 *  
+		 *  So if it contains the value return the key, print key and value.
+		 *  But how to move between objects?
+		 *  
+		 *  if key is kitchen object is object-kitchen?
+		 *  
+		 *  yourRoom = kitchen
+		 *  
+		 *  yourRoom print contents, ask for user input
+		 *  if user input == value, get key
+		 *  
+		 *  yourRoom = key
+		 *  
+		 *  */
+		
+		
+	yourRoom = kitchen;
+	
+	Scanner input = new Scanner(System.in);
+	
+	direction = input.nextLine();
+	
+	if(yourRoom.containsKey(direction)) {
+		JSONObject newRoom = yourRoom.getKey(direction);
+		yourRoom = newRoom;
+		
+	}
+	
+	
+		
+		
+	
+		
+	input.close();	
+	}
+
+}

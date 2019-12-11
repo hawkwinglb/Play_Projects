@@ -1,0 +1,23 @@
+/**
+ * 
+ */
+package textGame;
+
+import org.json.simple.JSONObject;
+
+/**
+ * @author bourk
+ *
+ */
+public class Map {
+	
+	private JSONObject kitchen = new JSONObject();
+	private JSONObject hall = new JSONObject();
+	private JSONObject dining = new JSONObject();
+	
+	public Map(JSONObject room, int number) {
+		
+	}
+	
+
+}

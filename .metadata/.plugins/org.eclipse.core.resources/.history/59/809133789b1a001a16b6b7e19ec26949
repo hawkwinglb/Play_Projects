@@ -1,0 +1,30 @@
+package textGame;
+
+import org.json.simple.JSONObject;
+
+public class GameMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int length;
+		length = 1;
+		
+		JSONObject[] areas = new JSONObject[length];
+		
+		
+		
+		JSONObject kitchen = new JSONObject();
+		JSONObject diningRoom = new JSONObject();
+		JSONObject hall = new JSONObject();
+		JSONObject ballroom = new JSONObject();
+		JSONObject garden = new JSONObject();
+		JSONObject cellar = new JSONObject();
+		
+		
+		kitchen.put("kitchen", "here");
+		
+		
+	}
+
+}
