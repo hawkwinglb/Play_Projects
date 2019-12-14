@@ -31,6 +31,12 @@ public class TestSubject {
 	public TestSubject(int[] eyeColour){
 		this.eyeColour = eyeColour;
 		}
+	
+	public TestSubject(int[] eyeColour, int[] hairColour) {
+		this.eyeColour = eyeColour;
+		this.hairColour = hairColour;
+	}
+	
 
 	public void displayEyeColour(){
 		System.out.println(eyeColour.toString());

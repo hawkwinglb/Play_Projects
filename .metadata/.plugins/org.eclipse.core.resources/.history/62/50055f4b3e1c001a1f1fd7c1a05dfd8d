@@ -1,0 +1,30 @@
+/**
+ * 
+ */
+package learning;
+
+/**
+ * @author bourk
+ *
+ */
+public class Child extends Parent {
+	
+	protected boolean canMove;
+
+	/**
+	 * @param name
+	 * @param description
+	 * @param canMove
+	 */
+	public Child(String name, String description, boolean canMove) {
+		super(name, description);
+		this.canMove = canMove;
+	}
+
+	@Override
+	public void showDetails() {
+		super.showDetails();
+	}
+	
+	
+}

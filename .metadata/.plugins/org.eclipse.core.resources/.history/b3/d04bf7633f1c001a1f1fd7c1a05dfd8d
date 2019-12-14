@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package learning;
+
+/**
+ * @author bourk
+ *
+ */
+public abstract class Person {
+
+}

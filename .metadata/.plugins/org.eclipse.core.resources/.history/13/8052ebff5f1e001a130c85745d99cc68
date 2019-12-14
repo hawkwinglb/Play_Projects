@@ -1,0 +1,189 @@
+/**
+ * 
+ */
+package genePlay;
+
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Collections;
+
+/**
+ * @author bourk
+ *
+ */
+public class GeneTest {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Scanner input = new Scanner(System.in);
+		System.out.println("We are doing a simple Mendelian calculation for eye colour and hair colour. There are one hundred people in every generation. How many generations do you want to model eye colour inheritance over?");
+		System.out.println("Enter number of years:");
+		int generations = input.nextInt();
+		
+		TestSubject[] generationParent1 = new TestSubject[50];
+		TestSubject[] generationParent2 = new TestSubject[50];
+		int generationNumber = 0;
+		int[][][] generationEyeArray = new int[generations][100][4];
+		int[][][] generationHairArray = new int[generations][100][4];
+
+		for(int i = 0; i<50; i++){
+			TestSubject subject = new TestSubject();
+			generationParent1[i] = subject;
+			TestSubject subjectTwo = new TestSubject();
+			generationParent2[i] = subjectTwo;
+			}
+
+		
+	do {
+		List<TestSubject> shuffleList = Arrays.asList(generationParent1);
+		Collections.shuffle(shuffleList);
+		shuffleList.toArray(generationParent1);
+		
+		List<TestSubject> shuffleList2 = Arrays.asList(generationParent2);
+		Collections.shuffle(shuffleList2);
+		shuffleList2.toArray(generationParent2);
+		
+		for(int i = 0; i<50; i++){
+			NewGeneration generation = new NewGeneration(generationParent1[i], generationParent2[i]);
+			generation.createNewSubject();
+			TestSubject child = generation.getChild();
+			generationParent1[i] = child;
+			}
+
+		for(int i = 49; i>0; i--){
+			NewGeneration generation = new NewGeneration(generationParent1[i], generationParent2[i]);
+			generation.createNewSubject();
+			TestSubject child = generation.getChild();
+			generationParent2[i] = child;
+			}
+
+		
+		
+		for(int i=0; i<50; i++) {
+			int[] colourValues = generationParent1[i].getEyeColour();
+			//System.out.println("No 1: " + Arrays.toString(colourValues));
+			for(int j=0; j<colourValues.length; j++) {
+				generationEyeArray[generationNumber][i][j] = colourValues[j];
+			}
+		}
+		
+		for(int i=49; i>0; i--) {
+			int[] colourValues2 = generationParent2[i].getEyeColour();
+			//System.out.println("No 2: " + Arrays.toString(colourValues2));
+			for(int j=0; j<colourValues2.length; j++) {
+			generationEyeArray[generationNumber][(i+50)][j] = colourValues2[j];
+			}
+		}
+		
+		for(int i=0; i<50; i++) {
+			int[] colourValues = generationParent1[i].getHairColour();
+			for(int j=0; j<colourValues.length; j++) {
+				generationHairArray[generationNumber][i][j] = colourValues[j];
+			}
+		}
+		
+		for(int i=49; i>0; i--) {
+			int[] colourValues2 = generationParent2[i].getHairColour();
+			for(int j=0; j<colourValues2.length; j++) {
+				generationHairArray[generationNumber][i][j] = colourValues2[j];
+			}
+		}
+		
+		
+		generationNumber++;
+		
+	}while(generationNumber<generations);
+	
+	int[][] eyes = new int[generations][100];
+	int[][] hair = new int[generations][100];
+	
+	
+	for(int i=0; i<generationEyeArray.length; i++) {
+		for(int j=0; j<generationEyeArray[i].length; j++) {
+			if((generationEyeArray[i][j][0] == 1) || (generationEyeArray[i][j][1] == 1) || (generationEyeArray[i][j][2] == 1) || (generationEyeArray[i][j][3] == 1) ) {
+				eyes[i][j] = 1;
+			}
+			else {
+				eyes[i][j] = 0;
+			}	
+		}
+	}
+	//1 = brown
+	//0=blue
+	
+		for(int i=0; i<generationHairArray.length; i++) {
+			for(int j=0; j<generationHairArray[i].length; j++) {
+				if((generationHairArray[i][j][0] == 1) || (generationHairArray[i][j][1] == 1) || (generationHairArray[i][j][2] == 1) || (generationHairArray[i][j][3] == 1) ) {
+					hair[i][j] = 1;
+				}
+				else {
+					hair[i][j] = 0;
+				}	
+			}
+		}
+		
+		//1=brown
+		//2=blond
+		
+	int brownEyesBrownHair = 0;
+	int brownEyesBlondHair = 0;
+	int blueEyesBrownHair = 0;
+	int blueEyesBlondHair = 0;
+	
+	for (int i=0; i<eyes.length; i++) {
+		for(int j=0; j<hair.length; j++) {
+			if(eyes[i][j] == 1 && hair[i][j] == 1) {
+				brownEyesBrownHair++;
+			}
+			else if(eyes[i][j] == 1 && hair[i][j] == 0) {
+				brownEyesBlondHair++;
+			}
+			else if(eyes[i][j] == 0 && hair[i][j] == 1) {
+				blueEyesBrownHair++;
+			}
+			else if(eyes[i][j] == 0 && hair[i][j] == 0) {
+				blueEyesBlondHair++;
+			}
+		}
+	}
+	
+	
+		
+	//	System.out.println("By generation " + (i) + " there have been " + brownValue + " people with brown eyes and " + blueValue + " people with blue eyes.");
+			
+	
+	//to get eye colour and hair colour per generation
+	int generationNo;
+	int eyesValueBrown = 0;
+	int eyesValueBlue = 0;
+	int hairValueBrown = 0;
+	int hairValueBlond = 0;
+	
+	for (int i=0; i<eyes[generationNo].length; i++) {
+		if(eyes[generationNo][i] == 1) {
+			eyesValueBrown++;
+		}
+		else {
+			eyesValueBlue++;
+		}
+	}
+	
+	for (int i = 0; i<hair[generationNo].length; i++) {
+		if (eyes[generationNo][i] == 1) {
+			hairValueBrown++;
+		}
+		else {
+			hairValueBlond++;
+		}
+	}
+	
+	
+input.close();
+	}
+
+}
