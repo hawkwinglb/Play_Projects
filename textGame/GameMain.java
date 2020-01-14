@@ -1,8 +1,7 @@
 package textGame;
 
-/*In which I build a small dungeon-crawler in order to work out HashMaps*/
-
-
+//import org.json.simple.JSONObject;
+//import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class GameMain {
 		
 		String room;
 		String[] beastSpeech = {"*scream*", "*howl*", "*growl*", "*groan*", "..."};
-		String[] hauntedSpeech = {"You will die now", "Your bones will feed our children", "So sweet the meat", "We bring your doom"};
+		String[] hauntedSpeech = {"You will die now.", "Your bones will feed our children!", "So sweet the meat.", "We bring your doom!"};
 		Monster pickedMonster = new Monster();
 		Random random = new Random();
 		int random5 = random.nextInt(5)+1;
@@ -36,6 +35,15 @@ public class GameMain {
 		HashMap<String, String> passageway = new HashMap<String, String>();
 		HashMap<String, String> cave = new HashMap<String, String>();
 		HashMap<String, String> cavern = new HashMap<String, String>();
+		
+		ArrayList<HashMap> roomlist = new ArrayList<HashMap>();
+		
+		roomlist.add(kitchen);
+		roomlist.add(diningRoom);
+		roomlist.add(hall);
+		roomlist.add(ballroom);
+		roomlist.add(garden);
+		roomlist.add(cellar);
 		
 		//create empty hashmap for current area
 		HashMap<String, String> yourRoom = new HashMap<String, String>();		
@@ -270,8 +278,8 @@ public class GameMain {
 		
 	
 	
-	int controller = 1;
-	while(controller!=0) {
+	int controller = 0;
+	while(controller==0) {
 
 		//find key-value pairs for directions
 		Set<String> theSet = yourRoom.keySet();
@@ -438,13 +446,21 @@ public class GameMain {
 								}
 							}
 						else if(fight == 2) {
-							System.out.println("You run away, prudently and very fast.");
+							if(yourRoom == passageway || yourRoom == cave || yourRoom == cavern) {
+								System.out.println("You can't run away fast enough. You have to fight back.");
+								fight=1;
+							}
+							else {
+								System.out.println("You run away, prudently and very fast.");
+							}
+							int randomRoom = random.nextInt(roomlist.size());
+							yourRoom = roomlist.get(randomRoom);
 							}
 					}
 						
 					else if(playerHealth == 0 || playerHealth < 0) {
 						System.out.println("You are dead: game over.");
-						controller = 0;
+						controller = 1;
 					}
 				}
 			}
