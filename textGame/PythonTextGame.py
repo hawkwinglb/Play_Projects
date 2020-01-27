@@ -87,36 +87,25 @@ creepyChild = Monster("revenant child", "The blood dripping from its eyes and po
 
 monsterList = [badDog, angryBird, ghost, creepyChild]
 
-#empty monster
-pickedMonster = Monster("picked", "null value", 0, 0, ["hello"], False)
-
 #create a function to randomise monster presence
 
 
 def monsterHere():
     values = [0, 1]
     value = random.choice(values)
-    if value == 0:
-        picked = False
-    elif value == 1:
-        picked = True
+    if value == 1:
         print("You are not alone.")
-    else:
-        print("Something is wrong.")
-
-def setMonster():
-    if picked == True:
         bound = len(monsterList)
         bound = bound-1
         ranNum = randint(0, bound)
         pickedMonster = monsterList[ranNum]
-        print("You see a:")
-        print(pickedMonster.getName())
-     #   print(pickedMonster.getDescription())
-     #   if pickedMonster.getIsHostile() == True:
-     #       print("The ", pickedMonster.getName(), " is angry!")
-     #   else:
-     #       print("The ", pickedMonster.getName(), " cowers away from you.")
+        monsterName = pickedMonster.getName()
+        print("You see a ", monsterName)
+        
+    elif value == 0:
+        print("You are alone.")
+    else:
+        print("Something is wrong.")
 
 
 
@@ -157,7 +146,6 @@ while carryOn == 0:
     picked = False
     showStatus()
     monsterHere()
-    setMonster()
 
     #manage navigation
     move = " "

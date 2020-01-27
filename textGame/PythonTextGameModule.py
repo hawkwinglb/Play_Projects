@@ -1,5 +1,3 @@
-name = "name"
-description = "description"
 
 class Character():
     
@@ -63,12 +61,12 @@ class Character():
 class Monster():
 
     def __init__(self, name, description, health, damage, flavourSpeech, isHostile):
-        name = name
-        description = description
-        health = health
-        damage = damage
-        flavourSpeech = flavourSpeech
-        isHostile = isHostile
+        self.name = name
+        self.description = description
+        self.health = health
+        self.damage = damage
+        self.flavourSpeech = flavourSpeech
+        self.isHostile = isHostile
 
     def getName(self):
         return name
