@@ -87,7 +87,9 @@ creepyChild = Monster("revenant child", "The blood dripping from its eyes and po
 
 monsterList = [badDog, angryBird, ghost, creepyChild]
 
-#create a function to randomise monster presence
+#create a function to randomise monster presence and fight monsters
+
+
 
 
 def monsterHere():
@@ -101,7 +103,28 @@ def monsterHere():
         pickedMonster = monsterList[ranNum]
         monsterName = pickedMonster.getName()
         print("You see a ", monsterName)
-        
+        if pickedMonster.getIsHostile() == True:
+            while pickedMonster.getIsHostile() == True:
+                print("The " + pickedMonster.getName() + " attacks!")
+                monsterDamage = pickedMonster.getDamage();
+                print("It deals you ", monsterDamage, " damage.")
+                health = player.getHealth() - monsterDamage
+                player.setHealth(health)
+                print("Your health is: ", player.getHealth())
+                runAway = input("Press 1 to fight back. Press 2 to run away.")
+
+                if runAway==2:
+                    currentRoom = random.choice(rooms)
+                elif runAway == 1:
+                    playerDamage=player.getDamage()+equipped.getDamage()
+                    print("You fight back, dealing ", playerDamage)
+                    pickedMonster.setHealth(pickedMonster.getHealth()-playerDamage)
+                else:
+                    print("That is not a good choice.")
+
+                if pickedMonster.getHealth()<=0:
+                    pickedMonster.setIsHostile(False)
+                    print("The ", pickedMonster.getName(), " runs away.")        
     elif value == 0:
         print("You are alone.")
     else:
@@ -115,7 +138,7 @@ playername = input("What is your character's name?")
 
 #equippedItem
 
-equipped = Item("none", "none", 0, False)
+equipped = Item("none", "none", 0, True)
 
 
 #empty inventory
@@ -128,14 +151,11 @@ equippableItems = []
 player = Character(playername, "The smallest idiot.", 10, 5, equipped, inventory, equippableItems)
 
 
-#create a fight function
 
-def monsterFight():
-    if pickedMonster.getName != "name" & pickedMonster.getIsHostile == True:
-        print("The " + pickedMonster.getName() + " attacks!")
-        monsterDamage = pickedMonster.getDamage();
-        print("It deals you " + monsterDamage + " damage.")
 
+
+
+        
 
 
 
