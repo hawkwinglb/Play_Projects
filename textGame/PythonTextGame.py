@@ -119,20 +119,38 @@ currentRoom = "kitchen"
 
 playername = input("What is your character's name?")
 
-player = Character(playername, "The smallest idiot.", 10, 5, [],[],[])
+#equippedItem
+
+equipped = Item("none", "none", 0, False)
+
+
+#empty inventory
+inventory = []
+
+#empty equippable items
+
+equippableItems = []
+
+player = Character(playername, "The smallest idiot.", 10, 5, equipped, inventory, equippableItems)
 
 
 #create a fight function
 
 def monsterFight():
     if pickedMonster.getName != "name" & pickedMonster.getIsHostile == True:
-        
+        print("The " + pickedMonster.getName() + " attacks!")
+        monsterDamage = pickedMonster.getDamage();
+        print("It deals you " + monsterDamage + " damage.")
+
+
+
 
 
 carryOn = 0
 
 while carryOn == 0:
     showStatus()
+    monsterHere()
 
     #manage navigation
     move = " "
