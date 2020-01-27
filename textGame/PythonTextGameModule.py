@@ -1,3 +1,6 @@
+name = "name"
+description = "description"
+
 class Character():
     
 
@@ -11,43 +14,43 @@ class Character():
         self.equippableItems = equippableItems
     
 
-    def getName():
+    def getName(self):
         return name 
     
     def setName(name):
         name = name
 
-    def getDescription():
+    def getDescription(self):
         return description
     
     def setDescription(description):
         description = description
 
-    def getHealth():
+    def getHealth(self):
         return health
     
     def setHealth(health):
         health = health
     
-    def getDamage():
+    def getDamage(self):
         return damage
 
-    def setDamage():
+    def setDamage(damage):
         damage = damage
     
-    def getEquippedItem():
+    def getEquippedItem(self):
         return equippedItem
 
     def setEquippedItem(equippedItem):
         equippedItem = equippedItem
 
-    def getInventory():
+    def getInventory(self):
         return inventory
 
     def setInventory(inventory):
         inventory = inventory
     
-    def getEquippableItems():
+    def getEquippableItems(self):
         return equippableItems
 
     def setEquippableItems(equippableItems):
@@ -59,39 +62,39 @@ class Character():
 
 class Monster():
 
-    def __init__(self, name, description, health, damage, flavourSpeech):
-        self.name = name
-        self.description = description
-        self.health = health
-        self.damage = damage
-        self.flavourSpeech = flavourSpeech
-        isHostile = True
+    def __init__(self, name, description, health, damage, flavourSpeech, isHostile):
+        name = name
+        description = description
+        health = health
+        damage = damage
+        flavourSpeech = flavourSpeech
+        isHostile = isHostile
 
-    def getName():
-        return name 
+    def getName(self):
+        return name
     
     def setName(name):
         name = name
 
-    def getDescription():
+    def getDescription(self):
         return description
     
     def setDescription(description):
         description = description
 
-    def getHealth():
+    def getHealth(self):
         return health
     
     def setHealth(health):
         health = health
     
-    def getDamage():
+    def getDamage(self):
         return damage
 
-    def setDamage():
+    def setDamage(damage):
         damage = damage
 
-    def getIsHostile():
+    def getIsHostile(self):
         return isHostile
     
     def setIsHostile(hostile):
@@ -100,7 +103,7 @@ class Monster():
     def setFlavourSpeech(flavourSpeech):
         flavourSpeech = flavourSpeech
     
-    def getFlavourSpeech():
+    def getFlavourSpeech(self):
         return flavourSpeech
 
 class Item():
@@ -111,25 +114,25 @@ class Item():
         self.damage = damage
         self.equippable = equippable
 
-    def getName():
+    def getName(self):
         return name
 
     def setName(name):
         name = name
     
-    def getDescription():
+    def getDescription(self):
         return description
 
     def setDescription(description):
         description = description
     
-    def getDamage():
+    def getDamage(self):
         return damage 
 
     def setDamage(damage):
         damage = damage
 
-    def getEquippable():
+    def getEquippable(self):
         return equippable
 
     def setEquippable(equippable):

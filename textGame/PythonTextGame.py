@@ -1,8 +1,10 @@
 #import classes
 
 import PythonTextGameModule
+from PythonTextGameModule import Item, Character, Monster
 from random import seed
-from random import randint
+from random import choice, randint
+import random
 
 #set up rooms as nested dictionary
 #dictionary seems to be more straightforward to navigate than Java's HashMaps
@@ -75,43 +77,46 @@ hauntedSpeech = ["You will die now.", "Your bones will feed our children!", "So 
 
 #create monsters
 
-badDog = Monster("slavering dog", "The dog has bared teeth and a foam-specked muzzle.", 7, 5, beastSpeech)
-angryBird = Monster("evil bird", "The bird has mad eyes and a wickedly hooked beak.", 5, 3, beastSpeech)
+badDog = Monster("slavering dog", "The dog has bared teeth and a foam-specked muzzle.", 7, 5, beastSpeech, True)
+angryBird = Monster("evil bird", "The bird has mad eyes and a wickedly hooked beak.", 5, 3, beastSpeech, True)
 
-ghost = Monster("wisp", "The wisp has a translucent, human-like shape. You can see the wall through it.", 5, 2, hauntedSpeech);
-creepyChild = Monster("revenant child", "The blood dripping from its eyes and pointed teeth gives you the first clue that this isn't a normal human child...", 7, 7, hauntedSpeech);
+ghost = Monster("wisp", "The wisp has a translucent, human-like shape. You can see the wall through it.", 5, 2, hauntedSpeech, True);
+creepyChild = Monster("revenant child", "The blood dripping from its eyes and pointed teeth gives you the first clue that this isn't a normal human child...", 7, 7, hauntedSpeech, True);
 
 #create monster list for random encounters
 
 monsterList = [badDog, angryBird, ghost, creepyChild]
 
 #empty monster
-pickedMonster = Monster("picked", "null value", 0, 0, ["hello"])
+pickedMonster = Monster("picked", "null value", 0, 0, ["hello"], False)
 
 #create a function to randomise monster presence
 
+
 def monsterHere():
-    seed(1)
-    value = randint(0,1)
+    values = [0, 1]
+    value = random.choice(values)
     if value == 0:
         picked = False
     elif value == 1:
         picked = True
+        print("You are not alone.")
     else:
         print("Something is wrong.")
 
+def setMonster():
     if picked == True:
         bound = len(monsterList)
         bound = bound-1
-        monster = randint(0, bound)
-        pickedMonster = monsterList[monster]
-        print("You are not alone here.")
-        print("You see a " + pickedMonster.getName())
-        print(pickedMonster.getDescription())
-        if pickedMonster.getIsHostile() == True:
-            print("The " + pickedMonster.getName() + " is angry!")
-        else:
-            print("The " + pickedMonster.getName() + " cowers away from you.")
+        ranNum = randint(0, bound)
+        pickedMonster = monsterList[ranNum]
+        print("You see a:")
+        print(pickedMonster.getName())
+     #   print(pickedMonster.getDescription())
+     #   if pickedMonster.getIsHostile() == True:
+     #       print("The ", pickedMonster.getName(), " is angry!")
+     #   else:
+     #       print("The ", pickedMonster.getName(), " cowers away from you.")
 
 
 
@@ -149,8 +154,10 @@ def monsterFight():
 carryOn = 0
 
 while carryOn == 0:
+    picked = False
     showStatus()
     monsterHere()
+    setMonster()
 
     #manage navigation
     move = " "
