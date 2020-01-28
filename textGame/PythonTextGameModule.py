@@ -16,46 +16,50 @@ class Character():
         return self.name 
     
     def setName(name):
-        name = name
+        self.name = name
 
     def getDescription(self):
         return self.description
     
     def setDescription(description):
-        description = description
+        self.description = description
 
     def getHealth(self):
         return self.health
     
-    def setHealth(health):
-        health = health
+    def setHealth(self, health):
+        self.health = health
     
     def getDamage(self):
         return self.damage
 
     def setDamage(damage):
-        damage = damage
+        self.damage = damage
     
     def getEquippedItem(self):
         return self.equippedItem
 
-    def setEquippedItem(equippedItem):
-        equippedItem = equippedItem
+    def setEquippedItem(self, equippedItem):
+        self.equippedItem = equippedItem
 
     def getInventory(self):
         return self.inventory
 
-    def setInventory(inventory):
-        inventory = inventory
+    def setInventory(self, inventory):
+        self.inventory = inventory
     
     def getEquippableItems(self):
         return self.equippableItems
 
-    def setEquippableItems(equippableItems):
-        equippableItems = equippableItems
+    def setEquippableItems(self, equippableItems):
+        self.equippableItems = equippableItems
 
-    def addToInventory(item):
-        inventory.append(item)
+    def addToInventory(self, item):
+        self.inventory.append(item)
+
+    def addToEquippable(self, item):
+        self.equippableItems.append(item)
+
 
 
 class Monster():
@@ -71,8 +75,8 @@ class Monster():
     def getName(self):
         return self.name
     
-    def setName(name):
-        name = name
+    def setName(self, name):
+        self.name = name
 
     def getDescription(self):
         return self.description
@@ -89,17 +93,17 @@ class Monster():
     def getDamage(self):
         return self.damage
 
-    def setDamage(damage):
-        damage = damage
+    def setDamage(self, damage):
+        self.damage = damage
 
     def getIsHostile(self):
         return self.isHostile
     
-    def setIsHostile(hostile):
-        isHostile = hostile
+    def setIsHostile(self, isHostile):
+        self.isHostile = isHostile
 
-    def setFlavourSpeech(flavourSpeech):
-        flavourSpeech = flavourSpeech
+    def setFlavourSpeech(self, flavourSpeech):
+        self.flavourSpeech = flavourSpeech
     
     def getFlavourSpeech(self):
         return self.flavourSpeech
@@ -115,23 +119,29 @@ class Item():
     def getName(self):
         return self.name
 
-    def setName(name):
+    def setName(self, name):
         self.name = name
     
     def getDescription(self):
         return self.description
 
-    def setDescription(description):
+    def setDescription(self, description):
         self.description = description
     
     def getDamage(self):
         return self.damage 
 
-    def setDamage(damage):
+    def setDamage(self, damage):
         self.damage = damage
 
     def getEquippable(self):
         return self.equippable
 
-    def setEquippable(equippable):
+    def setEquippable(self, equippable):
         self.equippable = equippable
+
+    def showDetails(self):
+        print("You see that it is: ", self.description)
+        if self.equippable == True:
+            print("This item can be equipped.")
+            print("Damage: ", self.damage)
