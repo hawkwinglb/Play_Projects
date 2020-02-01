@@ -15,13 +15,13 @@ class Character():
     def getName(self):
         return self.name 
     
-    def setName(name):
+    def setName(self, name):
         self.name = name
 
     def getDescription(self):
         return self.description
     
-    def setDescription(description):
+    def setDescription(self, description):
         self.description = description
 
     def getHealth(self):
@@ -33,7 +33,7 @@ class Character():
     def getDamage(self):
         return self.damage
 
-    def setDamage(damage):
+    def setDamage(self, damage):
         self.damage = damage
     
     def getEquippedItem(self):

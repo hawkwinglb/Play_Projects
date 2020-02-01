@@ -1,10 +1,16 @@
 #import classes
 
+#Problems:
+# 1: names in inventory call
+#1.a duplicates in inventory
+# 2: fights NOT ending in game over
+
 import PythonTextGameModule
 from PythonTextGameModule import Item, Character, Monster
 from random import seed
 from random import choice, randint
 import random
+import time
 
 #set up rooms as nested dictionary
 #dictionary seems to be more straightforward to navigate than Java's HashMaps
@@ -58,6 +64,37 @@ def showStatus():
     print("-----------------")
     print("You are in a " + currentRoom)
     print("-----------------")
+    if currentRoom == "kitchen":
+        print("Once, long ago, this was a lively place.")
+        time.sleep(1)
+    elif currentRoom ==  "cellar":
+        print("There are footprints in the dust, but you can't see where they lead.")
+        time.sleep(1)
+    elif currentRoom == "dining room":
+        print("This room is dusty and shows no sign of human life.")
+        time.sleep(1)
+    elif currentRoom == "cellar":
+        print("There are footsteps in the dust, but you can't see where they lead.")
+        time.sleep(1)
+    elif currentRoom == "passageway":
+        print("It is dark here.")
+        time.sleep(1)
+    elif currentRoom == "cave":
+        print("It's dark and cold. You might be lost.")
+        time.sleep(1)
+    elif currentRoom == "cavern":
+        print("You do not feel happy here.")
+        time.sleep(1)
+
+def openArea():
+    player.addToInventory(book)
+    if currentRoom == "cellar" and book in player.getInventory():
+        rooms[currentRoom].__setitem__("down", "passageway")
+        rooms.__setitem__("passageway", {"up" : "cellar", "north" : "cave"})
+        rooms.__setitem__("cave", {"south" : "passageway", "north" : "cavern"})
+        rooms.__setitem__("cavern", {"south" : "cave"})
+
+
 
 #create items
 
@@ -152,6 +189,7 @@ def monsterHere():
                 if player.getHealth()<=0:
                     carryOn = 10
                     print("Your health dropped to 0. Game over.")
+                    break
 
         elif pickedMonster.getIsHostile == False:
             print("The ", pickedMonster.getName(), " cowers away from you. Perhaps you should feel bad.")
@@ -166,7 +204,7 @@ def monsterHere():
 #okay we need to figure out how to assign items to rooms
 # it's going to be easier to randomise assignment here I think?
 
-itemList = [book, key, hockeystick, doll, knife, deadflower]
+itemList = [book, hockeystick, doll, knife, deadflower]
 
 #create a function to draw a random item
 
@@ -192,38 +230,70 @@ def itemHere():
 
 def inventoryManage():
     equipped = player.getEquippedItem()
-    inventory = player.getInventory()
-    numItems = len(inventory)
-    if numItems > 0:
+    if len(player.getInventory()) > 0:
         print("You have the following items in inventory: ")
         for i in range(len(player.getInventory())):
             print(player.getInventory()[i].getName())
-        for i in range(numItems):
-            invItem = inventory[i]
+        for i in range(len(player.getInventory())):
+            invItem = player.getInventory()[i]
             if invItem.getEquippable() == True:
                 player.addToEquippable(invItem)
 
-    equippableItems = player.getEquippableItems()
-    numEquippable = len(equippableItems)
-    if numEquippable > 0:
-        print("You have ", numEquippable, " items that can be equipped.")
-        for i in range(numEquippable):
-            print(i, ": ", equippableItems[i].getName())
+def equipManage():
+    equipped = player.getEquippedItem()
+    if len(player.getEquippableItems()) > 0:
+        print("You have ", len(player.getEquippableItems()), " items that can be equipped.")
+        if equipped in player.getEquippableItems():
+            print("You have ", equipped.getName(), " equipped.")
 
-        equip = int(input("If you want to equip one of these items, press the corresponding number:"))
-        if equip in range(numEquippable):
-            equipped = equippableItems[equip]
-            player.setEquippedItem(equipped)
-            print("You equipped: ", player.getEquippedItem())
+        changeEquipped = int(input("Press 1 to equip new item. Press any other key to continue."))
+        if changeEquipped == 1:
+            if equipped in player.getEquippableItems():
+                withoutEquipped = [x for x in player.getEquippableItems() if x != equipped]
+                for i in range(len(withoutEquipped)):
+                print((i+1), ": ", withoutEquipped[i].getName())
+
+                equip = int(input("If you want to equip one of these items, press the corresponding number:"))
+                if equip in range(len(withoutEquipped)):
+                    equip = equip-1
+                    equipped = withoutEquipped[equip]
+                    player.setEquippedItem(equipped)
+                    print("You equipped: ", player.getEquippedItem().getName())
+            elif equipped not in player.getEquippableItems():
+                for i in range(len.player.getEquippableItems()):
+                    print((i+1), ": ", player.getEquippableItems()[i].getName())
+                equip = int(input("If you want to equip one of these items, press the corresponding number:"))
+                if equip in range(len(player.getEquippableItems())):
+                    equip = equip - 1
+                    equipped = player.getEquippableItems[equip]
+                    player.setEquippedItem(equipped)
+                    print("You equipped: ", player.getEquippedItem().getName())
 
 
+def manageDuplicates():
+    inventory = player.getInventory()
+    inventory2 = []
+    for i in inventory:
+        if i not in inventory2:
+            inventory2.append(i)
+    player.setInventory(inventory2)
 
+    eqInventory = player.getEquippableItems()
+    eqInventory2 = []
+    for i in eqInventory:
+        if i not in eqInventory2:
+            eqInventory2.append(i)
+    player.setEquippableItems(eqInventory2)
 
-
-currentRoom = "kitchen"
-
-playername = input("What is your character's name?")
-
+def isKey():
+    inventory = player.getInventory()
+    numItems = len(inventory)
+    if numItems > 0:
+        if key in inventory:
+            playerhealth = player.getHealth()
+            if playerhealth < 10:
+                print("You touch the key in your pocket. You feel better.")
+                player.setHealth(10)
 
 #equippedItem
 
@@ -235,32 +305,61 @@ inventory = []
 #empty equippable Items
 equippableItems = []
 
+#set empty player name
+playername = " "
+
+#create player
+player = Character(playername, "stranger", 10, 5, equipped, inventory, equippableItems)
 
 
 
-player = Character(playername, "The smallest idiot.", 10, 5, equipped, inventory, equippableItems)
-print("Hello,", player.getName())
+print("It is 1900. You have come to the small village of Shadeham, Gloucester, in answer to a telegraph from the curate, an old friend of yours. He believes the long-abandoned Shadeham Hall is haunted, and wants your help to exorcise its ghosts.\nStrange, though. You expected he'd meet you at the train station. Instead, the only person you can see in the cold autumn sunshine is an elderly lady seated on a bench. She's reading a penny dreadful with a garish cover: THE CURSE OF THE BLOODY CHILD.")
+time.sleep(1)
+print("What do you want to do?")
+time.sleep(1)
+decision_lady = int(input("1. Talk to the old lady.\n2.Go look for Shadeham Hall: maybe you misremembered, and you were supposed to meet Father Brown there."))
+
+while decision_lady <1 or decision_lady>2:
+    decision_lady = input("Try again. 1. Talk. 2. Go to Shadeham Hall.")
+
+if decision_lady == 1:
+    print("\"Excuse me,\" you say.\nThe old lady glances up at you suspiciously. Her eyes are a peculiar shade of yellow.")
+    print("YELLOW-EYED OLD LADY: \"Who are you, then?\"")
+    time.sleep(1)
+    playername = input("Well, who *are* you? Enter your name.")
+    player.setName(playername)
+    print("YELLOW-EYED OLD LADY:" + "\"" + player.getName() + ". You're the one he's waiting for up at the Hall. He asked me to give you this. Now go away. I want to finish my book. Oh, and mind the dog. It's been living in the cellar for years.\"")
+    time.sleep(1)
+    print("She hands you a " + key.getName() + ".It is a " + key.getDescription() + ". Maybe it opens a door at the Hall? But the old lady is definitely not paying you any more attention.")
+    player.addToInventory(key)
+elif decision_lady == 2:
+    print("You decide to go look for the Hall. Oh, by the way. Who are you?")
+    time.sleep(1)
+    playername = input("Enter your name: ")
+    player.setName(playername)
+    itemList.append(key)
 
 
+print("Hello, ", player.getName(), "!\n Your health is: ", player.getHealth(), "\nIn a fight, you'll deal: ", player.getDamage(), " damage.")
+time.sleep(1)
+print("You wander up through the village. Eventually, you reach Shadeham Hall. The door stands open, but there's no sign of the curate. Maybe he's inside. You go in.")
+time.sleep(1)
 
-
-
-        
-
-
-
-
+currentRoom = "kitchen"
 carryOn = 0
 
 while carryOn == 0:
 
     picked = False
+    #restore health if key
+    isKey()
 
     #display location
     showStatus()
+    time.sleep(1)
 
     #is there a monster?
-    monsterHere()
+   # monsterHere()
 
     #is there an item?
     itemHere()
@@ -268,9 +367,8 @@ while carryOn == 0:
     # manage equipment
     inventoryManage()
 
-
-
-
+    #open new area
+    openArea()
 
     #manage navigation
     move = " "
